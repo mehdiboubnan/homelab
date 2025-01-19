@@ -35,7 +35,7 @@
           ({
             users.users.nixos = {
               openssh.authorizedKeys.keys = [
-                "ssh-ed25519 PUBLIC SSH KEY"
+                "|ssh-public-key-to-be-filled|"
               ];
             };
           })
