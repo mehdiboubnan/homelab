@@ -1,7 +1,0 @@
-keys:
-  - &mehlaba age142e54afjeqajz4pgdc30tj8u6cjnyppj9ef3xjv4keqmk7pjcc2sfhk29x
-creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|key)$
-    key_groups:
-      - age:
-          *mehlaba
