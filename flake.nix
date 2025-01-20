@@ -16,22 +16,14 @@
 
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs:
-  let
-      helpers = import ./flakeHelpers.nix inputs;
-      inherit (helpers) mkMerge mkNixos mkDarwin;
-  in
+  outputs = { ... } @ inputs:
   {
     nixosConfigurations = {
-      iso = nixpkgs.lib.nixosSystem {
+      iso = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           ({
             users.users.nixos = {
               openssh.authorizedKeys.keys = [
@@ -41,9 +33,10 @@
           })
         ];
       };
-      mehlaba = nixpkgs.lib.nixosSystem {
+      mehlaba = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
+        modules = [./machines/mehlaba/configuration.nix];
       };
     };
   };
