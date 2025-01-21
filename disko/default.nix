@@ -214,7 +214,7 @@
           # Docker with its own dataset
           "nixos/services/docker" = {
             type = "zfs_volume";
-            size = "100G";  # Increased for homelab use
+            size = "50G";  # Increased for homelab use
             content = {
               type = "filesystem";
               format = "ext4";
