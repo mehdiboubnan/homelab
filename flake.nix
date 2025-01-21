@@ -33,10 +33,10 @@
           })
         ];
       };
-      mehlaba = inputs.nixpkgs.lib.nixosSystem {
+      braka = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        modules = [./machines/mehlaba/configuration.nix];
+        modules = [./machines/braka/configuration.nix];
       };
     };
   };
