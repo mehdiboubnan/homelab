@@ -1,4 +1,8 @@
-{ config, inputs, pkgs, ... }: {
+{ config, inputs, pkgs, ... }:
+let
+    secretspath = builtins.toString inputs.nix-secrets;
+in
+{
   imports = [
     # Import sops-nix module from flake inputs
     inputs.sops-nix.nixosModules.sops
