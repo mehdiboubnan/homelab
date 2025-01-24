@@ -25,4 +25,4 @@ chmod 600 /nix/secret/initrd/age_public_key.txt
 echo -e "\033[32mAge public key generated at /nix/secret/initrd/age_public_key.txt\033[0m"
 echo -e "\033[1mAge public key:\033[0m"
 echo -e "\033[34m$(cat /nix/secret/initrd/age_public_key.txt)\033[0m"
-echo -e "\033[33mPlease update your .sops.yaml to include this key, update your secrets afterwards and push to github.\033[0m"
+echo -e "\033[33mPlease update your .sops.yaml to include this key, and update your secrets (via nix-shell -p sops --run 'sops updatekeys secrets/secrets.yaml'), then push to github.\033[0m"
