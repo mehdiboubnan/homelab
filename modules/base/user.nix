@@ -10,7 +10,9 @@
         description = "mehdi";
         hashedPasswordFile = config.sops.secrets.mehdi_passwd.path;
         extraGroups = [ "wheel" ]; # Enable sudo
-        openssh.authorizedKeys.keys = [ "<ssh-public-key-to-be-filled>" ]; # Your public key
+        openssh.authorizedKeys.keys = [ # Your public key
+            (builtins.readFile config.sops.secrets.ssh_public_key.path)
+        ];
         shell = pkgs.zsh;
     };
 
