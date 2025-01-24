@@ -11,9 +11,9 @@ echo -e "\033[32mSSH host key generated at /nix/secret/initrd/ssh_host_ed25519_k
 
 # Generate SSH Key for github (SSH Client ID)
 echo -e "\n\033[1mGenerating SSH keys for github...\033[0m"
-mkdir -p /mnt/home/mehdi/
-ssh-keygen -t ed25519 -f "~/.ssh/id_ed25519_git" -N ""
-echo -e "\033[32mSSH key generated for github at ~/.ssh/id_ed25519_git\033[0m"
+mkdir -p /root/.ssh/
+ssh-keygen -t ed25519 -f "/root/.ssh/id_ed25519_git" -N ""
+echo -e "\033[32mSSH key generated for github at /root/.ssh/id_ed25519_git\033[0m"
 echo -e "\033[1mSSH public key:\033[0m"
 echo -e "\033[34m$(cat ~/.ssh/id_ed25519_git.pub)\033[0m"
 echo -e "\033[33mPlease add the public key to your github.\033[0m"
