@@ -13,10 +13,9 @@
 
   # System-wide SOPS configuration
   sops = {
-    defaultSopsFile = ./../../secrets/secrets.yaml;
+    defaultSopsFile = "${secretspath}/secrets.yaml";
     age.sshKeyPaths = ["/nix/secret/initrd/ssh_host_ed25519_key"];
-#    secrets."user-password".neededForUsers = true;
-#    secrets."user-password" = {};
+    secrets."mehdi_passwd".neededForUsers = true;
   };
 #  sops = {
 #    age.keyFile = "/var/lib/sops-nix/key.txt";

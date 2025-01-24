@@ -14,9 +14,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-secrets = {
+      url = "git+ssh://git@github.com/mehdiboubnan/nix-secrets?shallow=1&ref=main";
+      flake = false;
+    };
+
   };
 
   outputs = { ... } @ inputs:
+  let
+    secretspath = builtins.toString inputs.nix-secrets;
+  in
   {
     nixosConfigurations = {
       iso = inputs.nixpkgs.lib.nixosSystem {
