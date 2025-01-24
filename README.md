@@ -117,3 +117,21 @@
     --no-root-passwd \
     --flake "git+file:///mnt/etc/nixos#<HOSTNAME>" # beraka, etc.
     ```
+###
+
+2. Put the public SSH key into the authorized keys of `nixos` user. This will avoid us to use a
+   screen and a keyboard, and allow us to connect directly to our homelab when booting on USB.
+    1. HOMELAB_PUBLIC_SSH=$(echo $(cat .ssh/homelab_ed25519_key.pub))
+    3. sed -i "s|ssh-public-key-to-be-filled|$HOMELAB_PUBLIC_SSH|" ./modules/base/user.nix
+10. Copy SSH key to initrd SSH. This will make us able to connect to the server before OS boot.
+     ```bash
+     exit
+     scp ~/.ssh/homelab_ed25519_key root@<NIXOS-IP>:/mnt/nix/secret/initrd/homelab_ed25519_key
+     scp ~/.ssh/homelab_ed25519_key.pub root@<NIXOS-IP>:/mnt/nix/secret/initrd/homelab_ed25519_key.pub
+     ```
+
+2. Convert this ssh key to an age key that we will use later for sops :
+    ```bash
+    mkdir -p ~/.config/sops/age/keys.txt
+    nix-shell --extra-experimental-features flakes -p ssh-to-age --run 'ssh-to-age -private-key -i ~/.ssh/homelab_ed25519_key' > ~/.config/sops/age/keys.txt
+    ```
