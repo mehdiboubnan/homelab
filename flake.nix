@@ -15,7 +15,7 @@
     };
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/mehdiboubnan/nix-secrets?shallow=1&ref=main";
+      url = "git+ssh://git@github.com/mehdiboubnan/nix-secrets?ref=main";
       flake = false;
     };
 
