@@ -36,10 +36,10 @@
           ./modules/iso.nix
         ];
       };
-      braka = inputs.nixpkgs.lib.nixosSystem {
+      beraka = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [./machines/braka/configuration.nix];
+        specialArgs = {inherit inputs ;};
+        modules = [./machines/beraka/configuration.nix];
       };
     };
   };
