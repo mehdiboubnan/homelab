@@ -8,7 +8,7 @@
     users.users.mehdi = {
         isNormalUser = true;
         description = "mehdi";
-        hashedPasswordFile = config.sops.secrets.user_passwd.path;
+        hashedPasswordFile = config.sops.secrets.user_hashed_password.path;
         extraGroups = [ "wheel" ]; # Enable sudo
         openssh.authorizedKeys.keys = [ # Your public key
             config.sops.secrets.ssh_public_key.contents
