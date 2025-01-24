@@ -20,7 +20,7 @@ in
     defaultSopsFile = "${inputs.nix-secrets}/secrets/secrets.yaml";
     age.sshKeyPaths = ["/nix/secret/initrd/ssh_host_ed25519_key"];
     secrets."user_passwd".neededForUsers = true;
-    secrets."ssh_public_key".format = "raw";
+    secrets."ssh_public_key".format = "string";
   };
 }
 #  sops = {
