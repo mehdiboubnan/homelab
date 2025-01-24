@@ -20,7 +20,7 @@ echo -e "\033[33mPlease add the public key to your github.\033[0m"
 
 # Convert SSH Host keys to Age (SOPS keys)
 echo -e "\n\033[1mConverting SSH host key to Age key...\033[0m"
-ssh-to-age /nix/secret/initrd/ssh_host_ed25519_key.pub > /nix/secret/initrd/age_public_key.txt
+nix-shell --extra-experimental-features flakes -p ssh-to-age --run 'ssh-to-age -i /nix/secret/initrd/ssh_host_ed25519_key.pub' > /nix/secret/initrd/age_public_key.txt
 chmod 600 /nix/secret/initrd/age_public_key.txt
 echo -e "\033[32mAge public key generated at /nix/secret/initrd/age_public_key.txt\033[0m"
 echo -e "\033[1mAge public key:\033[0m"
