@@ -7,7 +7,6 @@
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base/user.nix
-    ./../../modules/base/gen-initrd-sops-keys.nix
     ./../../modules/base/remote-unlock.nix
     ./../../modules/base/sops.nix
   ];
