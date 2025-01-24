@@ -27,18 +27,13 @@
   in
   {
     nixosConfigurations = {
-      iso = inputs.nixpkgs.lib.nixosSystem {
+      IsoBuild = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs ;};
+        modules = [./modules/iso.nix];
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ({
-            users.users.nixos = {
-              openssh.authorizedKeys.keys = [
-                "|ssh-public-key-to-be-filled|"
-              ];
-            };
-          })
+          ./modules/iso.nix
         ];
       };
       braka = inputs.nixpkgs.lib.nixosSystem {
