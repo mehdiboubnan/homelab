@@ -11,7 +11,7 @@
         hashedPasswordFile = config.sops.secrets.user_passwd.path;
         extraGroups = [ "wheel" ]; # Enable sudo
         openssh.authorizedKeys.keys = [ # Your public key
-            (builtins.readFile config.sops.secrets.ssh_public_key.path or (throw "SSH public key not found"))
+            config.sops.secrets.ssh_public_key.contents
         ];
         shell = pkgs.zsh;
     };

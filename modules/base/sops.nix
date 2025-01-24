@@ -21,8 +21,8 @@ in
     age.sshKeyPaths = ["/nix/secret/initrd/ssh_host_ed25519_key"];
     secrets."user_passwd".neededForUsers = true;
     secrets."ssh_public_key".format = "raw";
-    secrets."ssh_public_key".path = "/run/secrets/ssh_public_key";
   };
+}
 #  sops = {
 #    age.keyFile = "/var/lib/sops-nix/key.txt";
     # This will add secrets.yml to the nix store
@@ -39,6 +39,3 @@ in
 #    secrets.example-key = {};
 #    secrets."myservice/my_subdir/my_secret" = {};
 #  };
-
-
-}
