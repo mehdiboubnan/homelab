@@ -2,7 +2,8 @@
   inputs,
   outputs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base/user.nix
