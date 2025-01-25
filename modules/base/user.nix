@@ -26,4 +26,6 @@
           PasswordAuthentication = false;
         };
     };
+
+    system.stateVersion = "24.11";
 }
