@@ -4,6 +4,8 @@
     zsh
     ];
 
+    programs.zsh.enable = true;
+
     # SSH user configuration
     users.users.mehdi = {
         isNormalUser = true;
