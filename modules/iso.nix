@@ -11,4 +11,6 @@
     programs.bash.shellAliases = {
         install = "sudo bash -c '$(curl -fsSL https://raw.githubusercontent.com/mehdiboubnan/homelab/refs/heads/main/scripts/generate_keys.sh)'";
     };
+
+    nix.settings.experimental-features = ["nix-command" "flakes"];
 }
