@@ -10,6 +10,21 @@
     ./../../modules/base/remote-unlock.nix
     ./../../modules/base/sops.nix
   ];
+
+  networking = {
+    hostName = "beraka";
+    hostId = "d3d5eb79"; # hostid=$(echo -n "$hostname" | md5sum | cut -c1-8)
+    firewall = {
+      enable = true;
+    };
+  };
+
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    devices = [ "/dev/sda" ];
+  };
+
 }
   # Machine-specific secrets if needed
 #  sops.secrets.machine_specific_secret = {
