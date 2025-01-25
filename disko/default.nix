@@ -25,7 +25,7 @@
                 type = "luks";
                 name = "cryptboot";
                 # Generate with `mkpasswd -m sha-512`
-                passwordFile = "/tmp/secret.key";
+#                passwordFile = "/tmp/secret.key";
                 settings = {
                   allowDiscards = true;
                   keySize = 512;
@@ -43,7 +43,7 @@
               content = {
                 type = "luks";
                 name = "cryptroot";
-                passwordFile = "/tmp/secret.key";
+#                passwordFile = "/tmp/secret.key";
                 settings = {
                   allowDiscards = true;
                   keySize = 512;
