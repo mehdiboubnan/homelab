@@ -28,8 +28,8 @@
 #                passwordFile = "/tmp/secret.key";
                 settings = {
                   allowDiscards = true;
-                  keySize = 512;
-                  hashAlgorithm = "sha512";
+#                  keySize = 512;
+#                  hashAlgorithm = "sha512";
                 };
                 content = {
                   type = "zfs";
@@ -46,8 +46,8 @@
 #                passwordFile = "/tmp/secret.key";
                 settings = {
                   allowDiscards = true;
-                  keySize = 512;
-                  hashAlgorithm = "sha512";
+#                  keySize = 512;
+#                  hashAlgorithm = "sha512";
                 };
                 content = {
                   type = "zfs";
