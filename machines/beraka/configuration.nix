@@ -19,11 +19,19 @@
     };
   };
 
+#  boot.loader.grub = {
+#    enable = true;
+#    devices = [ "/dev/sda" ];
+#    enableCryptodisk = true; # Enable cryptodisk support
+#  };
+
   boot.loader.grub = {
-    enable = true;
-    devices = [ "/dev/sda" ];
-    enableCryptodisk = true; # Enable cryptodisk support
-  };
+  enable = true;
+  device = "nodev";
+  enableCryptodisk = true;  # Enables GRUB to decrypt the boot pool
+  efiSupport = true;       # Required for UEFI systems
+  fsIdentifier = "label";
+};
 
 }
   # Machine-specific secrets if needed
