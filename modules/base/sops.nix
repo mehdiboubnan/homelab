@@ -22,9 +22,9 @@ in
     secrets."user_hashed_password" = {
         neededForUsers = true;
     };
-#    secrets."ssh_public_key" = {
+    secrets."ssh_public_key" = {};
 #        format = "string";
-#    };
+    };
 
   };
 }
