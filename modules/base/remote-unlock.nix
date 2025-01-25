@@ -1,6 +1,7 @@
 {config, ...}: {
   boot.kernelParams = ["ip=dhcp"];
-#  boot.initrd.availableKernelModules = ["r8169"];
+  # Found in /sys/class/net/enp2s0/device/driver or with "ethtool -i enp2s0"
+  boot.initrd.availableKernelModules = ["r8169"];
   boot.initrd.network = {
     enable = true;
     ssh = {
