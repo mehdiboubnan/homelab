@@ -7,7 +7,7 @@
       port = 22;
       shell = "/bin/cryptsetup-askpass";
       authorizedKeys = config.users.users.mehdi.openssh.authorizedKeys.keys;
-      hostKeys = ["/nix/secret/initrd/ssh_host_ed25519_key"];
+      hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
     };
   };
 }

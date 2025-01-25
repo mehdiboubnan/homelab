@@ -18,7 +18,7 @@ in
   # System-wide SOPS configuration
   sops = {
     defaultSopsFile = "${inputs.nix-secrets}/secrets/secrets.yaml";
-    age.sshKeyPaths = ["/nix/secret/initrd/ssh_host_ed25519_key"];
+    age.sshKeyPaths = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
     secrets."user_hashed_password" = {
         neededForUsers = true;
     };
