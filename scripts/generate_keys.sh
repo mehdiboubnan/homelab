@@ -13,8 +13,15 @@ echo -e "\033[32mSSH host key generated at /mnt/etc/ssh/initrd/ssh_host_ed25519_
 echo -e "\n\033[1mGenerating SSH keys for github...\033[0m"
 mkdir -p /root/.ssh/
 ssh-keygen -t ed25519 -f "/root/.ssh/id_ed25519_git" -N ""
-eval "$(ssh-agent -s)"
-ssh-add /root/.ssh/id_ed25519_git
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    echo "Starting SSH agent..."
+    eval "$(ssh-agent -s)"
+else
+    echo "SSH agent is already running."
+fi
+# Add the SSH key to the agent
+echo "Adding SSH key to SSH agent..."
+ssh-add "/root/.ssh/id_ed25519_git"
 echo -e "\033[32mSSH key generated for github at /root/.ssh/id_ed25519_git\033[0m"
 echo -e "\033[1mSSH public key:\033[0m"
 echo -e "\033[34m$(cat ~/.ssh/id_ed25519_git.pub)\033[0m"
