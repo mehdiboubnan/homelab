@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -24,7 +24,7 @@
     };
 
   fileSystems."/boot/esp" =
-    { device = "/dev/disk/by-uuid/8889-9F14";
+    { device = "/dev/disk/by-uuid/9235-1EFC";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
@@ -50,7 +50,7 @@
     };
 
   fileSystems."/var/lib/docker" =
-    { device = "/dev/disk/by-uuid/8c034a55-672c-4c9c-935c-fef99363ef62";
+    { device = "/dev/disk/by-uuid/be21dc2a-26fc-470c-9cd6-41a2128e5022";
       fsType = "ext4";
     };
 
