@@ -58,12 +58,11 @@
 2. Connect to your homelab using SSH with agent forwarding :
    ```bash 
     ssh-add ~/.ssh/homelab_ed25519_key
-    ssh -A root@<NIXOS-IP>
+    ssh root@<NIXOS-IP>
    ```
 3. Switch to root user and create password :
     ```bash
-    sudo su
-    passwd
+    sudo passwd
     ```
 4. Partition and mount the drives using [disko](https://github.com/nix-community/disko)
     1. Detect the name of your hard drive (preferably SSD or NVMe) using lsblk
@@ -81,57 +80,41 @@
        ```bash
        sed -i "s|to-be-filled-during-installation|$DISK|" /tmp/disko.nix
        ```
-    4. Set an encryption password and save its hash to `/tmp/secret.key`
-       ```bash
-       mkpasswd -m sha-512 > /tmp/secret.key
-       ```
-    5. Run partition and mounting
+    4. Run partition and mounting. A passphrase will be prompted to encrypt the disk.
        ```bash
        nix --experimental-features "nix-command flakes" run github:nix-community/disko -- -m destroy,format,mount /tmp/disko.nix
        ```
-5. Download and run keys generation script (SSH Host, SSH client, SOPS age)
+5. Enable `flakes` :
    ```bash
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/mehdiboubnan/homelab/refs/heads/main/scripts/generate_keys.sh)"
+    mkdir -p ~/.config/nix
+    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
-   :warning: Follow instructions that pops when running the script.
 6. Install `git` :
    ```bash
     nix-env -f '<nixpkgs>' -iA git
    ```
-7. Clone homelab configuration
+7. Run keys generation script (SSH Host, SSH client, SOPS age)
    ```bash
-    git clone git@github.com:mehdiboubnan/homelab.git /mnt/etc/nixos
+    sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/mehdiboubnan/homelab/refs/heads/main/scripts/generate_keys.sh)"
    ```
-8. Generate your server hardware configuration
+   :warning: Follow instructions that pops when running the script.
+8. Clone homelab configuration & secrets
+   ```bash
+    eval "$(ssh-agent -s)"
+    ssh-add "/root/.ssh/id_ed25519_git"
+    git clone git@github.com:mehdiboubnan/homelab.git /mnt/etc/nixos
+    git clone git@github.com:mehdiboubnan/nix-secrets.git /mnt/etc/nix-secrets
+   ```
+9. Generate your server hardware configuration, and copy it to machine config
     ```bash
     nixos-generate-config --root /mnt
-   ```
-9. Copy configuration to your homelab machine config, and push it
-    ```bash
     cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/machines/<HOSTNAME>/
    ```
-8. Install NixOS
+10. Manually decrypt secrets before installation
     ```bash
-    nixos-install \
-    --root "/mnt" \
-    --no-root-passwd \
-    --flake "git+file:///mnt/etc/nixos#<HOSTNAME>" # beraka, etc.
+    sh /mnt/etc/nix-secrets/decrypt.sh
     ```
-###
-
-2. Put the public SSH key into the authorized keys of `nixos` user. This will avoid us to use a
-   screen and a keyboard, and allow us to connect directly to our homelab when booting on USB.
-    1. HOMELAB_PUBLIC_SSH=$(echo $(cat .ssh/homelab_ed25519_key.pub))
-    3. sed -i "s|ssh-public-key-to-be-filled|$HOMELAB_PUBLIC_SSH|" ./modules/base/user.nix
-10. Copy SSH key to initrd SSH. This will make us able to connect to the server before OS boot.
+11. Install NixOS
      ```bash
-     exit
-     scp ~/.ssh/homelab_ed25519_key root@<NIXOS-IP>:/mnt/nix/secret/initrd/homelab_ed25519_key
-     scp ~/.ssh/homelab_ed25519_key.pub root@<NIXOS-IP>:/mnt/nix/secret/initrd/homelab_ed25519_key.pub
+     nixos-install --root "/mnt" --no-root-passwd --flake "git+file:///mnt/etc/nixos#<HOSTNAME>" --impure
      ```
-
-2. Convert this ssh key to an age key that we will use later for sops :
-    ```bash
-    mkdir -p ~/.config/sops/age/keys.txt
-    nix-shell --extra-experimental-features flakes -p ssh-to-age --run 'ssh-to-age -private-key -i ~/.ssh/homelab_ed25519_key' > ~/.config/sops/age/keys.txt
-    ```
