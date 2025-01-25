@@ -4,7 +4,7 @@
     enable = true;
     # Specify the network interface name
     interfaces = [ "enp2s0" ];  # Replace with your actual interface name
-    configurationType = "static";
+#    configurationType = "static";
     static = {
       ip = "192.168.0.236";  # Your desired static IP
       gateway = "192.168.0.1";  # Gateway IP
