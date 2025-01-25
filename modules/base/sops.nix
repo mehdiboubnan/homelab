@@ -21,11 +21,9 @@ in
     age.sshKeyPaths = ["/nix/secret/initrd/ssh_host_ed25519_key"];
     secrets."user_hashed_password" = {
         neededForUsers = true;
-        path = "/nix/secret/user_hashed_password";
     };
     secrets."ssh_public_key" = {
         format = "string";
-        path = "/nix/secret/ssh_public_key";
     };
 
   };
